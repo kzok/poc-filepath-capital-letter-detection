@@ -20,6 +20,12 @@ jobs:
       - attach_workspace:
           at: .
       - run: "./test.sh"
+  ensure-all-paths-are-lowercase:
+    executor: main
+    steps:
+      - attach_workspace:
+          at: .
+      - run: git ls-files "**/*.ts" "**/*.tsx" | ./detect-uppercase.sh
 
 workflows:
   on-push:
@@ -28,3 +34,6 @@ workflows:
       - run-test:
           requires:
             - setup
+      - ensure-all-paths-are-lowercase:
+          requires:
+            - run-test
