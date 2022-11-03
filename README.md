@@ -19,3 +19,7 @@ git ls-files <glob-what-you-want-to-check> | ./detect-uppercase.sh
 ```bash
 ./test.sh
 ```
+
+## Example usage
+
+- https://github.com/kzok/poc-filepath-capital-letter-detection/pull/3/
