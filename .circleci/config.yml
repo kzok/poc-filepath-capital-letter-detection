@@ -1,0 +1,30 @@
+version: 2.1
+
+executors:
+  main:
+    docker:
+      - image: cimg/base:stable
+
+jobs:
+  setup:
+    executor: main
+    steps:
+      - checkout
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  run-test:
+    executor: main
+    steps:
+      - attach_workspace:
+          at: .
+      - run: "./test.sh"
+
+workflows:
+  on-push:
+    jobs:
+      - setup
+      - run-test:
+          requires:
+            - setup
